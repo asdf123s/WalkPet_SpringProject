@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mate">
+
+<!-- 동반인 글등록 -->
+	<insert id="mateadd" parameterType="mdto">
+		insert into tblMate(mateSeq, id, mateSubject, mateContent, regdate, periodState, startDate, endDate, areaName)
+    values (mateSeq.nextVal, 
+    		#{id}, 
+<!-- 			'hong', -->
+    		#{mateSubject}, 
+    		#{mateContent},
+            default, 
+            #{periodState}, 
+            default, 
+            SYSDATE + 7,
+			#{areaName} 
+			)
+	</insert>
+	
+	
+<!-- 	글 등록할 때 등록한 번호 가져오기  -->
+	<select id="getMateSeq" resultType="String">
+		select max(mateSeq) from tblMate
+	</select>
+	
+	
+<!-- 	동반인 이미지 등록 -->
+	<insert id="mateaddFile" parameterType="mfdto">
+		insert into tblMateImg(mateImgSeq, mateSeq, mateImgName) 
+			values (mateImgSeq.nextVal, #{mateSeq}, #{mateImgName})
+	</insert>
+	
+<!-- 	동반인 글목록 -->
+	<select id="list" resultType="mdto">
+		select m.mateSeq, 
+		        m.mateSubject, 
+		        m.mateContent, 
+		        m.periodState, 
+		        m.startDate, 
+		        m.endDate, 
+		        m.areaName, 
+		        mi.mateImgName
+		from tblMate m 
+		    left outer join tblMateImg mi
+		        on m.mateSeq = mi.mateSeq
+		            order by m.mateSeq desc
+	</select>
+	
+<!-- 	동반인 글목록에서 이미지 -->
+	<select id="mflist" parameterType="String" resultType="mfdto">
+		select * from tblMateImg where mateSeq = #{mateSeq}
+	</select>
+
+<!-- 	동반인 글 상세 -->
+	<select id="view" parameterType="String" resultType="mdto">
+		select * from tblMate where mateSeq = #{mateSeq}
+	</select>
+
+
+<!-- 	지역 찾기	 -->
+	<select id="areaadd" parameterType="String">
+		select max(areaName) from tblArea
+	</select>
+	
+	
+<!--    글쓴 회원의 반려동물 정보 보기 ***-->
+   <select id="petInfo" parameterType="String" resultType="mdto">
+   		select p.*
+			from tblPet p
+			    inner join tblMember mem
+			        on mem.id = p.id
+			            inner join tblMate mate
+			                on mate.id = mem.id
+			                    where mate.mateSeq = #{mateSeq}
+   </select>
+   
+   
+   <select id="matenum">
+   		select max(mateSeq) from tblMate
+   </select>
+   
+
+
+	
+	
+<!-- 	동반인 글 태그 -->
+	<insert id="addTagMate" parameterType="String">
+		insert into tblTag(tagSeq, tagName) 
+			values(tagseq.nextVal, #{tagName})
+	</insert>
+
+</mapper>

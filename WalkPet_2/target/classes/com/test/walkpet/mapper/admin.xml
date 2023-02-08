@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+	
+	<select id="memberList" resultType="memberdto">
+		select * from tblMember
+	</select>
+	
+	<select id="memberDetail" resultType="memberdto" parameterType="String">
+		select * from tblMember where id = #{id}
+	</select>
+	
+	<select id="petList" resultType="com.test.walkpet.admin.PetDTO" parameterType="String">
+		select * from tblPet p inner join tblPetImg i on i.petSeq = p.PETSEQ where p.id = #{id}
+	</select>
+	
+	<update id="userDel" parameterType="String">
+		update tblMember set state = 'n' where id = #{id}
+	</update>
+	
+	<select id="boardList" resultType="com.test.walkpet.admin.BoardDTO" parameterType="String">
+		select * from (select rownum as rnum, b.* from tblBoard b) where rnum between #{begin} and #{end} and BOARDCATEGORY = #{boardCategory}
+	</select>
+	
+	<select id="boardSearchList" resultType="com.test.walkpet.admin.BoardDTO" parameterType="String">
+		select * from (select rownum as rnum, b.* from tblBoard b) where rnum between #{begin} and #{end} and BOARDCATEGORY = #{boardCategory} and (content like '%' || #{word} || '%' or subject like '%' || #{word} || '%')
+	</select>
+	
+	<select id="boardImgList" resultType="com.test.walkpet.admin.BoardImgDTO">
+		select * from tblBoardImg
+	</select>
+	
+	<select id="getBoard" resultType="com.test.walkpet.admin.BoardDTO" parameterType="String">
+		select * from tblBoard where boardSeq = #{boardSeq}
+	</select>
+	
+	<select id="boardDel" parameterType="String">
+		delete from tblBoard where boardSeq = #{boardSeq}
+	</select>
+	
+	<select id="boardCount" parameterType="String" resultType="Integer">
+		select count(*) from tblBoard where boardCategory = #{boardCategory}
+	</select>
+	
+	<select id="login" parameterType="com.test.walkpet.admin.AdminDTO" resultType="com.test.walkpet.admin.AdminDTO">
+		select * from tblAdmin where adminId = #{adminId} and adminPw = #{adminPw}
+	</select>
+	
+	<select id="indexBoardList" resultType="com.test.walkpet.admin.BoardDTO">
+		select * from tblBoard order by regdate desc
+	</select>
+	
+</mapper>

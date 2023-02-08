@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias type="com.test.walkpet.DTO.MemberDTO"
+			alias="memberdto" />
+		<typeAlias type="com.test.walkpet.shop.ShopDTO"
+			alias="shopdto" />
+		<typeAlias type="com.test.walkpet.DTO.PetDiaryDTO"
+			alias="petdiarydto" />
+		<typeAlias type="com.test.walkpet.DTO.WishDTO"
+			alias="wishdto" />
+		<typeAlias type="com.test.walkpet.DTO.BoardDTO"
+			alias="boarddto" />
+		<typeAlias type="com.test.walkpet.DTO.ReviewDTO"
+			alias="reviewdto" />
+		<typeAlias type="com.test.walkpet.DTO.NoteDTO"
+			alias="notedto" />
+		<typeAlias type="com.test.walkpet.DTO.PetDTO" alias="petdto" />
+		<typeAlias type="com.test.walkpet.DTO.MateDTO"
+			alias="matedto" />
+		<typeAlias type="com.test.walkpet.DTO.DiaryDTO"
+			alias="diarydto" />
+		<typeAlias type="com.test.walkpet.DTO.AreaDTO"
+			alias="areadto" />
+		<typeAlias type="com.test.walkpet.DTO.PetFileDTO"
+			alias="pfdto" />
+		<typeAlias type="com.test.walkpet.DTO.MateFileDTO"
+			alias="mfdto" />
+		<typeAlias type="com.test.walkpet.DTO.MateDTO" alias="mdto" />
+		<typeAlias type="com.test.walkpet.DTO.NoteDTO" alias="ndto" />
+		<typeAlias type="com.test.walkpet.DTO.PetDTO" alias="pdto" />
+		<typeAlias type="com.test.walkpet.DTO.AreaDTO" alias="adto" />
+		<typeAlias type="com.test.walkpet.DTO.placeDTO" alias="placedto" />
+		
+		
+		
+		<typeAlias type="com.test.walkpet.DTO.FileDTO"  alias="fdto" />
+		<typeAlias type="com.test.walkpet.DTO.CommentDTO"  alias="cdto" />
+	</typeAliases>
+
+</configuration>

@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+#mate > .content {
+/* 	text-align: center; */
+	border-top: 1.5px solid #666;
+	border-bottom: 1px solid #ccc;
+	padding-top: 30px;
+}
+
+.title{
+	text-align:center;
+/* 	border-top: 1px solid #ccc;  */
+/* 	border-bottom: 1px solid #ccc;  */
+}
+
+.txt {
+	padding:50px; 
+	margin-bottom: 50px;
+	text-align:center;
+/* 	border-bottom: 1px solid #ccc;  */
+}
+
+#mate > div.txt > img {margin-bottom: 30px;}
+
+.btns{width: 260px; margin-top: 50px; text-align:center;}
+
+
+#main > div > section > div.posts > article > img {text-align:center;}
+
+
+.petinfo{
+	display: flex;
+}
+
+.petinfo > tbody {display: flex;}
+

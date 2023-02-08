@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+
+
+#mate {
+	width: 1140px;
+	margin: 0 auto;
+}
+
+
+.add {
+	width: 100px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+
+.th{text-align:center;}
+
+
+.info{
+	text-align: left;
+}
+
+#mate > div.txt > div > p {margin-bottom: 10px;}
+
+
+
+
+
+
+
+
+
+
+
+
+

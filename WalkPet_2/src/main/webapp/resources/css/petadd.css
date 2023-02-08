@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'twayair';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+inner{
+	margin: 0 auto;
+/* 	width: 1140px; */
+}
+#pet {
+	width: 1140px;
+	margin: 0 auto;
+}
+
+#pet > h2 {
+	text-align: center;
+}
+
+.number {
+	width:
+}
+input[type="number"] {
+	width: 100px;
+}
+
+#attach{
+	line-height: 2.75em;
+}
+
+input[type="checkbox"], input[type="radio"] {
+	background-color: initial;
+	cursor: default;
+	appearance: auto;
+	box-sizing: border-box;
+	margin: 3px 3px 0px 5px;
+	padding: initial;
+	border: initial;
+	z-index: 1;
+	opacity: 1;
+	float: none;
+	display: inline-block;
+/* 	accent-color: #f56a6a; */
+}
+
+.btns{margin: 0 auto; width: 250px;}
+   
+   
+#pet > form > table > tbody > tr > th{text-align:center;}
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

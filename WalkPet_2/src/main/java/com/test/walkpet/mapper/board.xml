@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	
+	<!-- 반려동물 갤러리 조회-->
+	<select id="galary" resultType="boarddto">
+		select 
+			* 
+		from tblBoard tb 
+		    inner join tblBoardImg tbi
+		        on tb.boardSeq = tbi.boardSeq 
+		            where boardCategory = '반려동물 갤러리' order by tb.boardSeq desc
+	</select>
+	
+	<!-- 강아지 게시판 조회  -->
+	<select id="dogBoard" resultType="boarddto">
+		select 
+			* 
+		from tblBoard tb 
+		    inner join tblBoardImg tbi
+		        on tb.boardSeq = tbi.boardSeq 
+		            where boardCategory = '강아지' order by tb.boardSeq desc
+	</select>
+	
+	<!-- 고양이 게시판 조회 -->
+	<select id="catBoard" resultType="boarddto">
+		select 
+			* 
+		from tblBoard tb 
+		    inner join tblBoardImg tbi
+		        on tb.boardSeq = tbi.boardSeq 
+		            where boardCategory = '고양이' order by tb.boardSeq desc
+	</select>
+	
+	
+	<!-- 다른 친구들 게시판 조회 -->
+	<select id="friendsBoard" resultType="boarddto">
+		select 
+			* 
+		from tblBoard tb 
+		    inner join tblBoardImg tbi
+		        on tb.boardSeq = tbi.boardSeq 
+		            where boardCategory = '다른 친구들' order by tb.boardSeq desc
+	</select>
+	
+	<!-- 상세페이지 조회 -->
+	<select id="boardDetail" resultType="boarddto">
+		select 
+		* 
+		from tblBoard tb
+		    inner join tblBoardImg tbi
+		        on tb.boardSeq = tbi.boardSeq
+		            where tb.boardSeq = #{boardSeq}
+	</select>
+	
+	<!-- 조회수 카운트 -->
+	<update id="boardView" parameterType="boarddto">
+		update tblBoard 
+			set viewCnt = viewCnt + 1
+				where boardSeq = #{boardSeq}
+	</update>
+	
+	<!-- 게시글 등록 -->
+	<insert id="add" parameterType="boarddto">
+		insert into tblBoard (boardSeq, id, boardCategory, subject, content, regdate)
+			values (boardSeq.nextVal, #{id}, #{boardCategory}, #{subject}, #{content}, default)
+	</insert>
+	
+	
+	<!-- 게시글 파일 등록 -->
+	<insert id="addFile" parameterType="fdto">
+	
+		insert into tblBoardImg (imgSeq, imgName, imgSize, imgType, boardSeq)
+			values (imgSeq.nextVal, #{imgName}, #{imgSize}, #{imgType}, (select max(boardSeq) from tblBoard))
+	
+	</insert>
+	
+	<!-- 댓글 등록 -->
+	<insert id="commentAdd" parameterType="cdto">
+		insert into tblComment (commentSeq, boardSeq, commentTxt)
+			values (commentSeq.nextVal, #{boardSeq}, #{commentTxt})
+	</insert>
+	
+	<!-- 댓글 조회 -->
+	<select id="commentList" resultType="cdto">
+		select 
+		*
+		from tblBoard tb
+		    inner join tblComment tc
+		        on tb.boardSeq = tc.boardSeq
+		            where tb.boardSeq = #{boardSeq}
+	</select>
+
+
+</mapper>

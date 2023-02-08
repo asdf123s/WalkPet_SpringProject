@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="walkpet">
+	
+	
+	
+	<select id="diarydetail" resultType="petdiarydto" parameterType="hashmap">
+		select * from tblPetDiary where id = #{id} and to_char(regdate, 'yyyy-mm-dd') = #{ddate}
+	</select>
+	
+	<select id="getmaxPetSeq" resultType="String" parameterType="String">
+		select petSeq from tblPet where id = #{id}
+	</select>
+	
+	<insert id="diaryinsert" parameterType="hashmap">
+		insert into tblPetDiary (diarySeq, petSeq, id, diaryImg, diaryContent, regdate) values(diarySeq.nextVal, #{petSeq}, #{id}, #{diaryImg}, #{diaryContent}, default)
+	</insert>
+	
+	<select id="insertafterview" resultType="petdiarydto" parameterType="hashmap">
+		select diaryImg, diaryContent, to_char(regdate, 'yyyy-mm-dd') as "regdate" from tblPetDiary where diaryContent = #{diaryContent}
+	</select>
+	
+	<select id="wishlist" resultType="wishdto" parameterType="String">
+		select w.id as "id", s.shopName as "shopName", s.shopAddress as "shopAddress", s.tel as "tel", s.hours as "hours" from tblWish w inner join tblShop s on w.shopSeq = s.shopSeq where id = #{id}
+	</select>
+	
+	<select id="boardlist" resultType="boarddto" parameterType="String">
+		select * from tblBoard where id = #{id}
+	</select>
+	
+	<select id="reviewlist" resultType="reviewdto" parameterType="String">
+		select s.shopName as "shopName", r.reviewContent as "reviewContent", to_char(r.regdate, 'yyyy-mm-dd') as "regdate" from tblReview r inner join tblShop s on r.shopSeq = s.shopSeq where id = #{id}
+	</select>
+	
+	<select id="notelist" resultType="notedto" parameterType="String">
+		select sendId, noteContent, to_char(regdate, 'yyyy-mm-dd') as "regdate" from tblNote where id = #{id}
+	</select>
+	
+	<select id="getpetimg" resultType="String" parameterType="String">
+		select * from (select pi.petImgName as "petImgName" from tblPet p inner join tblPetImg pi on p.petSeq = pi.petSeq where p.id = #{id}) where rownum &lt;= 1
+	</select>
+	
+	<select id="petinfolist" resultType="petdto" parameterType="String">
+		select * from tblPet where id = #{id}
+	</select>
+	
+	<update id="petinfoinsert" parameterType="hashmap">
+		update tblPet set petName = #{petname}, petVar = #{petvar}, petGender = #{petgender}, petAge = #{petage}, petChar = #{petchar}
+	</update>
+	
+	<select id="login" resultType="memberdto" parameterType="String">
+		select * from tblMember where id = #{id} and pw = #{pw}
+	</select>
+	
+	<select id="getpet" resultType="petdto" parameterType="String">
+		select * from (select * from tblPet a inner join tblPetImg b on a.petSeq = b.petSeq where id = #{id} ) where rownum &lt; = 1
+	</select>
+	
+	<select id="findpw" resultType="memberdto" parameterType="String">
+		select * from tblMember where id = #{id} and jumin = #{jumin}
+	</select>
+	
+	<select id="findid" resultType="memberdto" parameterType="String">
+		select * from tblMember where name = #{name} and jumin = #{jumin}
+	</select>
+	
+	<select id="idcheck" resultType="Integer" parameterType="String">
+		select count(*) from tblMember where id = #{id}
+	</select>
+	
+	<insert id="signup" parameterType="memberdto">
+		insert into tblMember (id, pw, name, email, jumin, gender, tel, address, state)
+		values (#{id}, #{pw}, #{name}, #{email}, #{jumin}, #{gender}, #{tel}, #{address}, 'y')
+	</insert>
+	
+	<select id="getmember" resultType="memberdto" parameterType="String">
+		select * from tblMember where id = #{id}
+	</select>
+	
+	<select id="getcafe" resultType="shopdto">
+		      select * from (SELECT nvl(C.likeCount, 0) as likeCount, D.*, (SELECT shopImgImage FROM tblShopImg WHERE D.shopSeq = shopSeq and rownum=1) as shopImgImage
+         FROM (
+         SELECT B.shopSeq, COUNT(B.shopSeq) as likeCount from tblShop A
+            , tblReview B
+         where A.shopSeq = B.shopSeq
+             AND B.reviewLike = 'Y'
+         GROUP BY B.shopSeq) C, tblShop D
+         WHERE C.shopSeq(+) = D.shopSeq
+          AND D.shopCategory = '카페'
+         order by d.shopSeq) where rownum &lt;= 6
+	</select>
+	
+	<select id="getfood" resultType="shopdto">
+				      select * from (SELECT nvl(C.likeCount, 0) as likeCount, D.*, (SELECT shopImgImage FROM tblShopImg WHERE D.shopSeq = shopSeq and rownum=1) as shopImgImage
+         FROM (
+         SELECT B.shopSeq, COUNT(B.shopSeq) as likeCount from tblShop A
+            , tblReview B
+         where A.shopSeq = B.shopSeq
+             AND B.reviewLike = 'Y'
+         GROUP BY B.shopSeq) C, tblShop D
+         WHERE C.shopSeq(+) = D.shopSeq
+          AND D.shopCategory = '음식점'
+         order by d.shopSeq) where rownum &lt;= 6
+	</select>
+	
+	<select id="getshopping" resultType="shopdto">
+				      select * from (SELECT nvl(C.likeCount, 0) as likeCount, D.*, (SELECT shopImgImage FROM tblShopImg WHERE D.shopSeq = shopSeq and rownum=1) as shopImgImage
+         FROM (
+         SELECT B.shopSeq, COUNT(B.shopSeq) as likeCount from tblShop A
+            , tblReview B
+         where A.shopSeq = B.shopSeq
+             AND B.reviewLike = 'Y'
+         GROUP BY B.shopSeq) C, tblShop D
+         WHERE C.shopSeq(+) = D.shopSeq
+          AND D.shopCategory = '쇼핑몰'
+         order by d.shopSeq) where rownum &lt;= 6
+	</select>
+	
+	<select id="getbeauty" resultType="shopdto">
+				      select * from (SELECT nvl(C.likeCount, 0) as likeCount, D.*, (SELECT shopImgImage FROM tblShopImg WHERE D.shopSeq = shopSeq and rownum=1) as shopImgImage
+         FROM (
+         SELECT B.shopSeq, COUNT(B.shopSeq) as likeCount from tblShop A
+            , tblReview B
+         where A.shopSeq = B.shopSeq
+             AND B.reviewLike = 'Y'
+         GROUP BY B.shopSeq) C, tblShop D
+         WHERE C.shopSeq(+) = D.shopSeq
+          AND D.shopCategory = '미용'
+         order by d.shopSeq) where rownum &lt;= 6
+	</select>
+	
+	<select id="getrest" resultType="shopdto">
+				      select * from (SELECT nvl(C.likeCount, 0) as likeCount, D.*, (SELECT shopImgImage FROM tblShopImg WHERE D.shopSeq = shopSeq and rownum=1) as shopImgImage
+         FROM (
+         SELECT B.shopSeq, COUNT(B.shopSeq) as likeCount from tblShop A
+            , tblReview B
+         where A.shopSeq = B.shopSeq
+             AND B.reviewLike = 'Y'
+         GROUP BY B.shopSeq) C, tblShop D
+         WHERE C.shopSeq(+) = D.shopSeq
+          AND D.shopCategory = '숙소'
+         order by d.shopSeq) where rownum &lt;= 6
+	</select>
+	
+	<select id="getlatlng" resultType="shopdto" parameterType="String">
+		select * from tblShop where areaname = #{area}
+	</select>
+	
+	<select id="getmate" resultType="matedto">
+		select * from (select * from tblMate order by regdate) where rownum between 1 and 4
+	</select>
+	
+	<select id="getdiary" resultType="diarydto" parameterType="String">
+		select * from (select * from tblPetDiary a inner join tblPet b on a.petSeq = b.petSeq where a.id = #{id} order by a.regdate) where rownum between 1 and 3
+	</select>
+	
+	<select id="getnote" resultType="notedto" parameterType="String">
+		select * from tblNote where id = #{id} and regdate between sysdate and sysdate-3
+	</select>
+	
+	<select id="getseoul" resultType="areadto">
+		select a.areaName from tblArea a inner join tblShop b on a.areaName = b.areaName where b.shopAddress like '서울%'
+	</select>
+	
+	<select id="getgyeong" resultType="areadto">
+		select a.areaName from tblArea a inner join tblShop b on a.areaName = b.areaName where b.shopAddress like '경기%'
+	</select>
+	
+	<!--    반려동물 추가하기 -->
+   <insert id="petadd" parameterType="pdto">
+   		insert into tblPet(petSeq, petType, id, petName, petVar, petGender, petAge, petChar) 
+   		values(petSeq.nextVal, 
+   					#{petType}, 
+<!--    					'hong' -->
+   					#{id}, 
+   					#{petName}, 
+   					#{petVar}, 
+   					#{petGender}, 
+   					#{petAge}, 
+   					#{petChar}
+   					)
+   </insert>
+   
+   
+<!--    동물 등록할 때 등록한 번호 가져오기 -->
+   <select id="getPetSeq" resultType="String">
+   		select max(petSeq) from tblPet
+   </select>
+   
+   
+   
+<!--    반려동물 파일 등록 -->
+<!-- (select petSeq from tblPet where id= #{id}) -->
+   <insert id="addPetFile" parameterType="pfdto">
+   		insert into tblPetImg(petImgSeq, petSeq, petImgName) 
+    		values(petImgSeq.nextVal, #{petSeq}, #{petImgName})
+    		
+   </insert>
+   
+   
+<!--    특정회원 반려동물 보여주기 -->
+   <select id="petList" parameterType="String" resultType="pdto">
+   		select * from tblPet where id = 'test'
+   </select>
+   
+   
+<!--    동물 파일가져오는 -->
+   <select id="petfileList" parameterType="String" resultType="pfdto">
+   		select * from tblPetImg where petSeq = #{petSeq}
+   </select>
+   
+   
+   <select id="placeList" parameterType="java.lang.String" resultType="placedto">
+      SELECT nvl(C.likeCount, 0) as likeCount, D.*, (SELECT shopImgImage FROM tblShopImg WHERE D.shopSeq = shopSeq and rownum=1) as shopImgImage
+         FROM (
+         SELECT B.shopSeq, COUNT(B.shopSeq) as likeCount from tblShop A
+            , tblReview B
+         where A.shopSeq = B.shopSeq
+             AND B.reviewLike = 'Y'
+         GROUP BY B.shopSeq) C, tblShop D
+         WHERE C.shopSeq(+) = D.shopSeq
+          AND D.shopCategory = #{shopCategory}
+         order by d.shopSeq
+   </select>
+	
+	<select id="placeChoiceList" parameterType="placedto" resultType="placedto">
+      SELECT nvl(C.likeCount, 0) as likeCount, D.*, (SELECT shopImgImage FROM tblShopImg WHERE D.shopSeq = shopSeq and rownum=1) as shopImgImage
+         FROM (
+         SELECT B.shopSeq, COUNT(B.shopSeq) as likeCount from tblShop A
+            , tblReview B
+         where A.shopSeq = B.shopSeq
+             AND B.reviewLike = 'Y'
+         GROUP BY B.shopSeq) C, tblShop D
+         WHERE C.shopSeq(+) = D.shopSeq
+          AND D.areaName = #{areaName}
+          AND D.shopCategory = #{shopCategory}
+         order by d.shopSeq
+   </select>
+	
+</mapper>

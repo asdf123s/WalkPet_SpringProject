@@ -1,0 +1,247 @@
+a {
+	border-bottom: none;
+}
+
+/* 로그인 */
+#login_area {
+	width: 400px;
+    margin: 0 auto;
+    margin-top: 80px;
+    padding: 60px 30px;
+    border: 1px solid #e4e4e4;
+    border-radius: 10px;
+    background: #f5f5f5cc;
+}
+
+#login_title {
+	font-size: 30px;
+}
+
+#login_area .input {
+	margin-bottom: 15px;
+}
+
+#login_area a {
+	color: #7f888f;
+	font-size: 13px;
+	border: none;
+}
+
+#login_area #login_etc {
+	margin-left: 15px;
+	margin-bottom: 15px;
+}
+
+#login_area #login_btns {
+	text-align: center;
+}
+
+#login_area .login_btn {
+	text-align: center;
+	display: inline-block;
+	width: 120px;
+}
+
+#login_area .login_btn:hover {
+	background-color: #f56a6a;
+	color: white !important;
+	border: none;
+}
+
+.login_btn:nth-child(1) {
+	margin-right: 20px;
+}
+
+
+/* 회원가입 */
+.signup_area .title {
+	margin-bottom: 7px;	
+}
+
+.signup_area #memId {
+	display: inline-block;
+	width: 410px;
+	margin-right: 20px;
+}
+
+.signup_area .input {
+	margin-bottom: 24px;
+}
+
+.signup_area input[type=radio] {
+	margin-bottom: 24px;
+}
+
+.signup_area #sample4_postcode {
+	display: inline-block;
+	width: 384px;
+	margin-right: 20px;
+}
+
+#sample4_detailAddress {
+	margin-bottom: 30px !important;
+}
+
+.signup_area .btn:hover {
+	background-color: #f56a6a;
+	color: white !important;
+	border: none;
+}
+
+
+/* 메인페이지 */
+#area {
+	width: 800px;
+}
+#map {
+	margin-top: 30px;
+	width: 800px;
+	height: 300px;
+}
+
+.shop_title {
+	margin-bottom: 60px;
+	border-bottom: 3px solid #f56a6a;
+	padding-bottom: 10px;
+	width: 190px;
+}
+
+#banner .shop_category {
+	text-align: center !important;
+	width: 100%;
+	margin-top: 40px;
+}
+
+#banner .shop_category > a {
+	width: 100px;
+	display: inline-block;
+	padding: 10px;
+	color: #7f888f;
+	border: none;
+}
+
+#banner .shop_category > a:hover {
+	color: #f56a6a;
+}
+
+#banner .shopImg {
+	height: 150px;
+	overflow: hidden;	
+}
+
+#banner .shopImg > img {
+	width: 240px;
+	transition: 0;
+}
+#banner .shopImg:hover img {
+	transform: scale(1.3);
+	transition: 0.3s;
+}
+
+#banner .item {
+	width: 300px;
+	display: inline-block;
+	border-right: 1px solid #ccc;
+	margin-top: 40px;
+	padding: 20px;
+}
+
+#banner .item:nth-of-type(3n) {
+	border: none;
+}
+
+#banner .item_title {
+	text-align: left;
+	font-size: 16px;
+	font-weight: bold;
+	margin: 10px 0;
+	margin-left: 10px;
+}
+#banner .item_address {
+	text-align: left;
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
+#banner .btn {
+	float: left;
+	margin-left: 10px;
+}
+
+#banner .more {
+	border: none;
+	text-align: right;
+	position: absolute;
+	right: 15%;
+}
+
+#banner .more:hover {
+	font-weight: bold;
+}
+
+
+
+#mate {
+	margin: 0 auto;
+	text-align: center;
+}
+#mate .items {
+	margin-top: 95px;
+}
+#mate .item {
+	display: inline-block;
+	width: 45%;
+	padding: 20px;
+}
+
+#mate .item:nth-of-type(2n-1) {
+	border-right: 1px solid #ccc;
+}
+
+#mate .item:nth-of-type(1), #mate .item:nth-of-type(2){
+	border-bottom: 1px solid #ccc;
+}
+
+#mate .item:nth-of-type(2n) {
+	margin-left: -5px;
+}
+
+#mate img {
+	height: 240px;
+}
+
+#mate .info {
+	text-align: left;
+	margin-left: 20px;
+	margin-top: 15px;
+}
+
+#mate .subject {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#mate .matemore {
+	display: block;
+	border: none;
+	position: absolute;
+	right: 11%;
+}
+
+#mate .matemore:hover {
+	font-weight: bold;
+}
+
+#mate .itemlink {
+	color: #7f888f;
+	transition: 0;
+}
+
+#mate .itemlink:hover .content, #mate .itemlink:hover .id, #mate .itemlink:hover .date {
+	color: #7f888f;
+	transition: 0.3s;
+}
+
+#mate .itemlink:hover .item {
+	background-color: #efefef;
+	transition: 0.6s;
+}
